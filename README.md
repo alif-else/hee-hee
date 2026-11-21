@@ -20,12 +20,16 @@ For local Worker preview, copy `.dev.vars.example` to `.dev.vars`, then run:
 npm run preview
 ```
 
-To deploy, authenticate with `npx wrangler login`, then run:
+For Cloudflare's Git-connected build settings, configure:
 
 ```bash
-npm run deploy
+Build command:   npm run build:cloudflare
+Deploy command:  npm run deploy:cloudflare
 ```
 
-The Cloudflare account needs to be selected or configured in Wrangler. The
-`wrangler.jsonc` file defines the Worker and its static assets; no R2 cache is
+The build command must run OpenNext, not plain `npm run build`; OpenNext
+generates `.open-next/worker.js`, which the deploy command needs. For a manual
+deployment, authenticate with `npx wrangler login` and run `npm run deploy`.
+The Cloudflare account needs to be selected or configured in Wrangler.
+`wrangler.jsonc` defines the Worker and its static assets; no R2 cache is
 configured because the app does not use incremental revalidation.
