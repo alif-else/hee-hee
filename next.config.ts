@@ -1,10 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
   output: "standalone",
 };
+
+import("@opennextjs/cloudflare").then((mod) =>
+  mod.initOpenNextCloudflareForDev(),
+);
 
 export default nextConfig;

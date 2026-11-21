@@ -6,10 +6,10 @@ export default function Home() {
     <main className={styles.page}>
       <Image
         className={styles.image}
-        src="/cat-clapping.gif"
-        alt="A cat clapping"
-        width={381}
-        height={498}
+        src="/quote-meme.jpeg"
+        alt="A four-panel manga meme about loving the ordinary"
+        width={447}
+        height={447}
         unoptimized
         priority
       />
