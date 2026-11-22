@@ -1,11 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "standalone",
+  output: "export",
 };
-
-import("@opennextjs/cloudflare").then((mod) =>
-  mod.initOpenNextCloudflareForDev(),
-);
 
 export default nextConfig;

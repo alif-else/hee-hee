@@ -2,6 +2,8 @@
 **/.git
 .next
 **/.next
+out
+**/out
 node_modules
 **/node_modules
 .env*

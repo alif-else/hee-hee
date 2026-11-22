@@ -11,25 +11,14 @@ npm install
 npm run dev
 ```
 
-## Cloudflare Workers
+## Cloudflare Pages
 
-The project uses OpenNext and Wrangler to build and deploy to Cloudflare Workers.
-For local Worker preview, copy `.dev.vars.example` to `.dev.vars`, then run:
-
-```bash
-npm run preview
-```
-
-For Cloudflare's Git-connected build settings, configure:
+The app is statically exported to the `out` directory. In Cloudflare Pages,
+connect the GitHub repository and configure:
 
 ```bash
-Build command:   npm run build:cloudflare
-Deploy command:  npm run deploy:cloudflare
+Build command:   npm run build
+Build directory: out
 ```
 
-The build command must run OpenNext, not plain `npm run build`; OpenNext
-generates `.open-next/worker.js`, which the deploy command needs. For a manual
-deployment, authenticate with `npx wrangler login` and run `npm run deploy`.
-The Cloudflare account needs to be selected or configured in Wrangler.
-`wrangler.jsonc` defines the Worker and its static assets; no R2 cache is
-configured because the app does not use incremental revalidation.
+The same `out` directory is used by the Docker image.
