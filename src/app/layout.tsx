@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Cat Clapping",
-  description: "A cat clapping GIF from Tenor.",
+  description: "A four-panel manga meme about loving the ordinary.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

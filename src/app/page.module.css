@@ -16,3 +16,67 @@
   max-height: calc(100dvh - 2rem);
   object-fit: contain;
 }
+
+.loaderPage {
+  position: relative;
+  background: #fff;
+}
+
+.loaderCanvas {
+  display: block;
+  width: 160px;
+  height: 136px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.loaderIcon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.progressTrack {
+  width: 4rem;
+  height: 3px;
+  overflow: hidden;
+  background: #e9d5ff;
+}
+
+.progressIndicator {
+  display: block;
+  height: 100%;
+  background: #9333ea;
+  transition: width 75ms linear;
+}
+
+.poem {
+  position: fixed;
+  top: clamp(1.25rem, 4vw, 2.5rem);
+  right: clamp(1rem, 4vw, 3rem);
+  max-width: min(32rem, calc(100vw - 2rem));
+  color: #334155;
+  font-family: "Courier New", Courier, monospace;
+  font-size: clamp(0.68rem, 1.25vw, 0.85rem);
+  font-weight: 300;
+  line-height: 1.7;
+  text-align: right;
+}
+
+.poemLine {
+  min-height: 1.7em;
+  white-space: pre-wrap;
+}
+
+.caret {
+  display: inline-block;
+  margin-left: 0.08em;
+  animation: caretBlink 1s steps(1, end) infinite;
+}
+
+@keyframes caretBlink {
+  50% {
+    opacity: 0;
+  }
+}
