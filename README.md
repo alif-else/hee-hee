@@ -21,4 +21,13 @@ Build command:   npm run build
 Build directory: out
 ```
 
+When using a Workers Build deployment, configure:
+
+```bash
+Build command:  npm run build
+Deploy command: npx wrangler deploy
+```
+
+`wrangler.jsonc` serves `out/` as static assets without OpenNext migration.
+
 The same `out` directory is used by the Docker image.
