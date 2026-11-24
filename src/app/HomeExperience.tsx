@@ -2,7 +2,7 @@
 
 import Script from "next/script";
 import Image from "next/image";
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useState } from "react";
 import styles from "./page.module.css";
 
 const POEM_LINES = [
@@ -18,37 +18,10 @@ const TOTAL_ANIMATED_CHARACTERS = ANIMATED_POEM_LINES.reduce(
   0,
 );
 
-const LOADER_SEEN_KEY = "hee-hee-loader-complete";
-const LOADER_COMPLETE_EVENT = "hee-hee-loader-complete";
-
-type PagePhase = "checking" | "loading" | "image";
-
-function subscribeToPagePhase(onChange: () => void) {
-  window.addEventListener("storage", onChange);
-  window.addEventListener(LOADER_COMPLETE_EVENT, onChange);
-
-  return () => {
-    window.removeEventListener("storage", onChange);
-    window.removeEventListener(LOADER_COMPLETE_EVENT, onChange);
-  };
-}
-
-function getPagePhase(): PagePhase {
-  return window.localStorage.getItem(LOADER_SEEN_KEY) === "true"
-    ? "image"
-    : "loading";
-}
-
-function getServerPagePhase(): PagePhase {
-  return "checking";
-}
+type PagePhase = "loading" | "image";
 
 export default function HomeExperience() {
-  const phase = useSyncExternalStore(
-    subscribeToPagePhase,
-    getPagePhase,
-    getServerPagePhase,
-  );
+  const [phase, setPhase] = useState<PagePhase>("loading");
   const [animatedLines, setAnimatedLines] = useState<string[]>(
     ANIMATED_POEM_LINES.map(() => ""),
   );
@@ -98,8 +71,7 @@ export default function HomeExperience() {
 
       timer = window.setTimeout(() => {
         if (!active) return;
-        window.localStorage.setItem(LOADER_SEEN_KEY, "true");
-        window.dispatchEvent(new Event(LOADER_COMPLETE_EVENT));
+        setPhase("image");
       }, 1100);
     };
 
@@ -110,10 +82,6 @@ export default function HomeExperience() {
       window.clearTimeout(timer);
     };
   }, [phase]);
-
-  if (phase === "checking") {
-    return <main className={styles.page} />;
-  }
 
   if (phase === "loading") {
     return (
