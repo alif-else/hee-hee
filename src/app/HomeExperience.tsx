@@ -20,6 +20,8 @@ const TOTAL_ANIMATED_CHARACTERS = ANIMATED_POEM_LINES.reduce(
 
 type PagePhase = "loading" | "image";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+
 export default function HomeExperience() {
   const [phase, setPhase] = useState<PagePhase>("loading");
   const [animatedLines, setAnimatedLines] = useState<string[]>(
@@ -27,6 +29,18 @@ export default function HomeExperience() {
   );
   const [activeAnimatedLine, setActiveAnimatedLine] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [wizardName, setWizardName] = useState<string | null>(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch(`${API_URL}/api/name`, { signal: controller.signal })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: { name?: string } | null) => {
+        if (data?.name) setWizardName(data.name);
+      })
+      .catch(() => {});
+    return () => controller.abort();
+  }, []);
 
   useEffect(() => {
     if (phase !== "loading") return;
@@ -142,6 +156,7 @@ export default function HomeExperience() {
         unoptimized
         priority
       />
+      {wizardName && <p className={styles.wizardName}>{wizardName}</p>}
     </main>
   );
 }
